@@ -1,0 +1,141 @@
+/* Estilos base */
+.product-section {
+  padding: 5rem 0;
+  background: #111;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Títulos */
+.section-title {
+  position: relative;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: #FFBF00; /* Negro fuerte */
+  margin-bottom: 10px;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: #FFBF00; /* Amarillo corporativo */
+  margin: 15px auto;
+}
+
+.section-title p {
+  color: #ffffff;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Grid de tarjetas */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 250px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  box-shadow: 0 8px 25px rgba(255, 191, 0, 0.378);
+  transform: translateY(-5px);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.category-card:hover .image-wrapper img {
+  transform: scale(1.1);
+}
+
+.category-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.268);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.category-overlay h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #FFBF00; /* Amarillo corporativo */
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.category-overlay p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-card {
+    height: 300px;
+  }
+  
+  .section-title h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Estado de carga */
+.loading-message {
+  text-align: center;
+  padding: 2rem;
+  color: #FFBF00;
+  font-weight: 500;
+}

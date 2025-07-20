@@ -1,0 +1,28 @@
+/* Tipografía elegante */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+  
+:root {
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+   --strong-yellow: #FFD700;
+            --strong-black: #000000;
+            --strong-gray: #333333;
+            --strong-light: #f8f9fa;
+
+ 
+}
+
+
+
+body {
+  margin: 0;
+
+  font-family: 'Montserrat', sans-serif;
+  
+
+ 
+}
+
+
