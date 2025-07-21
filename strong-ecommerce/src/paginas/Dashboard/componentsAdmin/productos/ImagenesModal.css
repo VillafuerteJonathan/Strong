@@ -1,0 +1,227 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.imagenes-modal {
+  background-color: rgb(47, 47, 47);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #575757;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.table-container {
+  padding: 15px;
+  overflow-x: auto;
+}
+
+.imagenes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.imagenes-table th {
+  background-color: #2c3e50;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.imagenes-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.imagenes-table tr:nth-child(even) {
+  background-color: #333;
+}
+
+.imagenes-table tr:hover {
+  background-color: #626262;
+}
+
+.editing-row {
+  background-color: #fffde7 !important;
+}
+
+.no-images {
+  text-align: center;
+  color: #666;
+  padding: 15px;
+}
+
+.imagen-preview {
+  width: 100px;
+  height: 80px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.angulo {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.imagen-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-input-label {
+  display: inline-block;
+  background-color: #000;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s;
+}
+
+.file-input-label:hover {
+  background-color: #333;
+}
+
+.file-input {
+  display: none;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #218838;
+}
+
+.btn-close {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+}
+
+.btn-close:hover {
+  background-color: #0069d9;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .imagenes-table {
+    font-size: 13px;
+  }
+  
+  .imagenes-table th, 
+  .imagenes-table td {
+    padding: 8px;
+  }
+  
+  .imagen-preview {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}

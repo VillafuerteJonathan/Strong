@@ -1,5 +1,5 @@
-import Categorias from './Categorias';
-import Productos from './Productos';
+import Categorias from './categorias/Categorias';
+import Productos from './productos/Productos';
 import Pedidos from './Pedidos';
 
 const ContentArea = ({ section }) => {
