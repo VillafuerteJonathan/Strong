@@ -4,11 +4,13 @@
   align-items: center;
   min-height: 100vh;
   background-color: #121212;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                  url('../../assets/login-bg.jpg');
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url('../../assets/login-bg.jpg');
   background-size: cover;
   background-position: center;
   padding: 20px;
+  box-sizing: border-box; /* Asegura que el padding no afecte al ancho */
 }
 
 .login-box {
@@ -19,6 +21,10 @@
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   border: 1px solid #333;
+  box-sizing: border-box;
+  /* Añadido para mejor responsividad */
+  display: flex;
+  flex-direction: column;
 }
 
 .logo-login {
@@ -31,22 +37,26 @@
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 .logo-login p {
   color: #aaa;
   font-size: 1rem;
+  margin: 0; /* para evitar márgenes inesperados */
 }
 
 .input-group {
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group label {
-  display: block;
   margin-bottom: 0.5rem;
   color: #ddd;
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .input-group input {
@@ -57,13 +67,18 @@
   border-radius: 6px;
   color: #fff;
   font-size: 1rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-group input::placeholder {
+  color: #777;
 }
 
 .input-group input:focus {
   border-color: #FFD700;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
 }
 
 .login-button {
@@ -76,11 +91,12 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   margin-top: 10px;
+  user-select: none;
 }
 
-.login-button:hover {
+.login-button:hover:not(:disabled) {
   background-color: #e6c200;
   transform: translateY(-2px);
 }
@@ -101,14 +117,30 @@
   background: rgba(255, 0, 0, 0.1);
   border-radius: 4px;
   border-left: 3px solid #ff6b6b;
+  box-sizing: border-box;
 }
 
+/* Responsividad para móviles */
 @media (max-width: 480px) {
   .login-box {
     padding: 2rem 1.5rem;
   }
-  
+
   .logo-login h1 {
     font-size: 2rem;
+  }
+
+  .input-group label {
+    font-size: 0.9rem;
+  }
+
+  .input-group input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .login-button {
+    font-size: 0.95rem;
+    padding: 12px;
   }
 }
