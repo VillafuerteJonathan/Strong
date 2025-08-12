@@ -288,6 +288,8 @@ function Productos() {
     <div className="productos-container">
       {/* Search and Add Product Header */}
       <div className="header-productos">
+      <h2>Gestión de Productos</h2>
+      <div className='categorias-actions'>
         <div className="buscador-container">
           <input
             type="text"
@@ -296,6 +298,7 @@ function Productos() {
             onChange={handleBusquedaChange}
             className="buscador-input"
           />
+        </div>
         </div>
         
         <button 
