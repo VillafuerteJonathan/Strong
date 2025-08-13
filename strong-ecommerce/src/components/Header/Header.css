@@ -1,34 +1,40 @@
-/* Contenedor general del navbar fijo */
+/* Variables de colores */
+:root {
+  --primary-color: #FFBF00;
+  --dark-bg: #000000;
+  --text-light: #FFFFFF;
+  --text-dark: #333333;
+  --shadow-light: rgba(255, 191, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar fijo y transición */
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
-  transition: all 0.3s ease;
   background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 
-/* Cuando se hace scroll */
+/* Navbar cuando se hace scroll */
 .navbar-scrolled {
-  background: #000000; /* fondo semitransparente */
+  background: var(--dark-bg);
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  border-bottom: 1px solid #ddbb58;
-box-shadow: 0 5px 15px rgba(255, 191, 0, 0.1), 
-            0 2px 6px rgba(228, 224, 89, 0.2);
-border-color: rgba(255, 191, 0, 0.2);
-
-
-  
+  box-shadow:
+    0 5px 15px var(--shadow-light),
+    0 2px 6px rgba(228, 224, 89, 0.2);
+  border-bottom: 1px solid rgba(255, 191, 0, 0.2);
 }
 
-/* Container ancho maximo y centrado */
+/* Contenedor centrado */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 1.5rem; /* 24px */
 }
 
-/* Flex para alinear contenido navbar */
+/* Contenido navbar: flex y alineación */
 .navbar-content {
   display: flex;
   align-items: center;
@@ -41,48 +47,41 @@ border-color: rgba(255, 191, 0, 0.2);
   cursor: pointer;
   user-select: none;
   font-weight: 700;
-  font-size: 1.875rem; /* 3xl */
-  color:  #FFBF00; /* color primary */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  font-size: 1.875rem; /* 30px */
+  color: var(--primary-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  
 }
-
 .logo:hover {
   transform: scale(1.05);
 }
 
-/* Navegación desktop (oculto en móviles) */
+/* Navegación desktop */
 .nav-desktop {
   display: none;
   align-items: center;
   gap: 2rem;
-  
-  
 }
-
 @media (min-width: 768px) {
   .nav-desktop {
     display: flex;
   }
 }
 
-/* Botones de navegación */
+/* Links navegación */
 .nav-link {
   background: none;
   border: none;
-  color: #FFBF00;
+  color: var(--primary-color);
   font-weight: 800;
   position: relative;
   cursor: pointer;
   transition: color 0.3s ease;
   font-size: 1rem;
 }
-
 .nav-link:hover {
-  color: #FFBF00;
+  color: var(--primary-color);
 }
-
 
 /* Subrayado animado */
 .nav-underline {
@@ -91,21 +90,21 @@ border-color: rgba(255, 191, 0, 0.2);
   left: 0;
   height: 2px;
   width: 0;
-  background-color: #FFBF00;
+  background-color: var(--primary-color);
   transition: width 0.3s ease;
 }
-
 .nav-link:hover .nav-underline {
   width: 100%;
 }
 
-/* Contacto desktop (oculto en móviles) */
+/* Contacto escritorio */
 .contact-desktop {
   display: none;
   align-items: center;
   gap: 1rem;
+  color: #666;
+  font-size: 0.875rem;
 }
-
 @media (min-width: 1024px) {
   .contact-desktop {
     display: flex;
@@ -121,16 +120,17 @@ border-color: rgba(255, 191, 0, 0.2);
   font-size: 0.875rem;
 }
 
-/* Iconos tamaño */
+/* Iconos tamaño estándar */
 .icon {
-  width: 1rem;
-  height: 1rem;
+  width: 24px;
+  height: 24px;
+  color: var(--primary-color);
 }
 
 /* Botón primario */
 .btn-primary {
-  background: linear-gradient(90deg, #facc15, #fde68a); /* amarillo gradiente */
-  color: #1f2937; /* gris oscuro */
+  background: linear-gradient(90deg, #facc15, #fde68a);
+  color: #1f2937;
   font-weight: 900;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -138,23 +138,20 @@ border-color: rgba(255, 191, 0, 0.2);
   cursor: pointer;
   transition: transform 0.3s ease;
 }
-
 .btn-primary:hover {
   transform: scale(1.05);
 }
 
-
-/* Botón fantasmal para menú */
+/* Botón fantasmal (ghost) */
 .btn-ghost {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #333;
+  color: var(--text-dark);
   transition: color 0.3s ease;
 }
-
 .btn-ghost:hover {
-  color: #FFBF00
+  color: var(--primary-color);
 }
 
 /* Botón full width */
@@ -162,42 +159,49 @@ border-color: rgba(255, 191, 0, 0.2);
   width: 100%;
 }
 
-/* Botón menú móvil visible solo en móvil */
+/* Botón menú móvil */
 .mobile-menu-button {
   display: block;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s ease;
 }
-
+.mobile-menu-button:hover {
+  color: #fde68a;
+}
 @media (min-width: 768px) {
   .mobile-menu-button {
     display: none;
   }
 }
 
-/* Menú móvil, oculto inicialmente */
+/* Menú móvil (oculto inicialmente) */
 .mobile-menu {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
- 
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
-
 .mobile-menu-open {
-  max-height: 400px; /* o el alto que necesites */
+  max-height: 400px;
   opacity: 1;
 }
 
 /* Contenido menú móvil */
 .mobile-menu-items {
   padding: 1rem 0;
-  background: rgba(255, 255, 255, 0.1); /* fondo semitransparente */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   border-radius: 0 0 0.75rem 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: var(--primary-color);
 }
-
 
 /* Links móviles */
 .mobile-nav-link {
@@ -207,15 +211,14 @@ border-color: rgba(255, 191, 0, 0.2);
   padding: 0.5rem 1rem;
   background: none;
   border: none;
-  color: #FFBF00;
+  color: var(--primary-color);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-size: 1rem;
 }
-
 .mobile-nav-link:hover {
-  color: #FFBF00;
+  color: var(--primary-color);
   background-color: rgba(59, 130, 246, 0.1);
 }
 
@@ -229,21 +232,25 @@ border-color: rgba(255, 191, 0, 0.2);
   color: #666;
   font-size: 0.875rem;
 }
+
+/* Títulos generales */
 h1 {
-  font-family: 'Montserrat', sans-serif; /* Ejemplo de fuente moderna */
-  font-weight: 700; /* negrita */
-  font-size: 1.875rem; /* 3xl ~ 30px */
-  color: #FFBF00; /* color primary amarillo */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 2); /* sombra suave */
-  user-select: none; /* para que no se seleccione el texto */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.875rem;
+  color: var(--primary-color);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  user-select: none;
 }
+
+/* Contenedor para iconos */
 .icons-container {
   display: flex;
   align-items: center;
-  gap: 1rem; /* espacio entre los íconos */
+  gap: 1rem;
 }
 
-/* Estilo general para los botones de íconos */
+/* Botones para iconos */
 .icon-button {
   background: transparent;
   border: none;
@@ -254,15 +261,6 @@ h1 {
   justify-content: center;
   transition: color 0.3s ease;
 }
-
 .icon-button:hover {
-  color: #FFBF00; /* Amarillo al pasar el mouse */
+  color: var(--primary-color);
 }
-
-/* Tamaño del ícono */
-.icon {
-  width: 24px;
-  height: 24px;
-  color: #FFBF00; /* Color base del ícono */
-}
-

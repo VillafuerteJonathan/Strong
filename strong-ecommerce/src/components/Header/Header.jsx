@@ -62,9 +62,10 @@ const Header = () => {
             <button className="icon-button">
                 <ShoppingCartIcon className="icon" />
             </button>
-            <button className="icon-button ">
+             <button className="icon-button ">
                 <PersonIcon className="icon" />
             </button>
+           
             </div>
 
 

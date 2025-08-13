@@ -2,122 +2,122 @@
 .hero-section {
   position: relative;
   width: 100%;
-   height: 100vh; 
+  height: 100vh;
   overflow: hidden;
 }
 
-/* Estilos de cada slide */
+/* Cada slide */
 .hero-slide {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 0.8s ease;
   pointer-events: none;
+  transition: opacity 0.8s ease;
   z-index: 1;
 }
-
 .hero-slide.active {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* Imagen hero */
 .hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.5); /* oscurece la imagen para contrastar texto */
+  filter: brightness(0.5);
 }
 
-/* Capa degradada encima de la imagen */
+/* Degradado sobre imagen */
 .hero-gradient {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(31, 31, 31, 0.3));
   z-index: 2;
 }
 
-/* Contenido del hero */
+/* Contenido */
 .hero-content {
   position: relative;
   z-index: 3;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-}
-
-.hero-text-container {
+  color: #fff;
+  padding: 0 1rem;
   text-align: center;
   max-width: 800px;
-  padding: 0 20px;
+  margin: 0 auto;
+  padding-top: 80px; /* Espacio para header fijo */
 }
 
-/* Título principal */
+/* Título */
 .hero-title {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Subtítulo */
 .hero-subtitle {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   font-weight: 400;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 /* Descripción */
 .hero-description {
   font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  line-height: 1.6;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 /* Botones */
 .hero-buttons {
   display: flex;
-  gap: 20px;
   justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
   margin-top: 30px;
 }
 
+/* Botones estilo común */
 .btn-hero-primary,
 .btn-hero-outline {
   padding: 12px 30px;
   font-size: 1.1rem;
-  font-weight: bold;
+  font-weight: 700;
   border-radius: 30px;
   min-width: 180px;
   cursor: pointer;
   transition: all 0.3s ease;
+  user-select: none;
 }
 
-/* Botón principal */
+/* Botón primario */
 .btn-hero-primary {
   background: #FFD700;
   color: #000;
   border: none;
 }
-
-.btn-hero-primary:hover {
+.btn-hero-primary:hover,
+.btn-hero-primary:focus {
   background: #000;
   color: #FFD700;
   transform: scale(1.05);
+  outline: none;
 }
 
 /* Botón contorno */
@@ -126,10 +126,11 @@
   color: #FFD700;
   border: 2px solid #FFD700;
 }
-
-.btn-hero-outline:hover {
+.btn-hero-outline:hover,
+.btn-hero-outline:focus {
   background: rgba(255, 215, 0, 0.1);
   transform: scale(1.05);
+  outline: none;
 }
 
 /* Flechas de navegación */
@@ -148,21 +149,16 @@
   justify-content: center;
   cursor: pointer;
   z-index: 4;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
+  user-select: none;
 }
-
-.hero-arrow:hover {
+.hero-arrow:hover,
+.hero-arrow:focus {
   background: rgba(0, 0, 0, 0.8);
+  outline: none;
 }
-
-.left-arrow {
-  left: 30px;
-}
-
-.right-arrow {
-  right: 30px;
-}
-
+.left-arrow { left: 30px; }
+.right-arrow { right: 30px; }
 .hero-arrow .icon {
   width: 30px;
   height: 30px;
@@ -172,14 +168,12 @@
 .hero-indicators {
   position: absolute;
   bottom: 30px;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
   gap: 10px;
   z-index: 4;
 }
-
 .indicator-dot {
   width: 12px;
   height: 12px;
@@ -189,78 +183,51 @@
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
+  user-select: none;
 }
-
 .indicator-dot.active,
-.indicator-dot:hover {
+.indicator-dot:hover,
+.indicator-dot:focus {
   background: #FFD700;
   transform: scale(1.2);
-}
-
-/* Accesibilidad */
-.hero-arrow:focus,
-.btn-hero-primary:focus,
-.btn-hero-outline:focus,
-.indicator-dot:focus {
-  outline: 2px solid #FFD700;
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .hero-title { font-size: 2.8rem; }
+  .hero-subtitle { font-size: 1.5rem; }
+  .hero-description { font-size: 1.1rem; }
+}
+
 @media (max-width: 768px) {
+  .hero-content {
+    padding-top: 140px; /* espacio extra arriba */
+  }
   .hero-section {
-    height: calc(100vh - 80px); /* En móviles resta el header */
-    
+    height: calc(100vh - 80px);
+    padding-bottom: 2rem; /* espacio extra abajo para separar del siguiente bloque */
   }
-
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.3rem;
-  }
-
-  .hero-description {
-    font-size: 1rem;
-  }
-
+  .hero-title { font-size: 2.2rem; }
+  .hero-subtitle { font-size: 1.3rem; }
+  .hero-description { font-size: 1rem; }
   .hero-buttons {
     flex-direction: column;
     gap: 15px;
   }
-
   .btn-hero-primary,
   .btn-hero-outline {
     width: 100%;
     max-width: 250px;
     margin: 0 auto;
   }
-
-  .hero-arrow {
-    width: 40px;
-    height: 40px;
-  }
-
-  .left-arrow {
-    left: 15px;
-  }
-
-  .right-arrow {
-    right: 15px;
-  }
+  .hero-arrow { width: 40px; height: 40px; }
+  .left-arrow { left: 15px; }
+  .right-arrow { right: 15px; }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.8rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-
-  .hero-description {
-    font-size: 0.9rem;
-  }
+  .hero-title { font-size: 1.8rem; }
+  .hero-subtitle { font-size: 1.1rem; }
+  .hero-description { font-size: 0.9rem; }
 }

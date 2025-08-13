@@ -8,16 +8,23 @@ function ImagenesModal({ producto, onClose }) {
   const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
-    cargarImagenes();
+    if (producto && producto.id) {
+      cargarImagenes();
+    }
   }, [producto]);
 
   const cargarImagenes = () => {
     fetch(`http://localhost/ecommerce-backend/endpoints/imagenes_producto.php?producto_id=${producto.id}`)
       .then(res => res.json())
-      .then(data => setImagenes(data || []));
+      .then(data => setImagenes(Array.isArray(data) ? data : []))
+      .catch(err => {
+        console.error('Error al cargar imágenes:', err);
+        setImagenes([]);
+      });
   };
 
   const handleEditar = (imagen) => {
+    console.log('Imagen editando:', imagen);
     setEditando(imagen);
     setNuevaImagen(null);
   };
@@ -28,75 +35,67 @@ function ImagenesModal({ producto, onClose }) {
   };
 
   const handleFileChange = (e) => {
-    setNuevaImagen(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      setNuevaImagen(e.target.files[0]);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!nuevaImagen) {
+      alert('Por favor selecciona una nueva imagen');
+      return;
+    }
+
+    // Validar que editando tenga los campos necesarios
+    if (!editando || !editando.id || !editando.orden || !editando.angulo) {
+      alert('Error interno: datos de imagen incompletos');
+      return;
+    }
+
     setCargando(true);
 
     const formData = new FormData();
+    formData.append('action', 'update');
+    formData.append('id', editando.id);
     formData.append('producto_id', producto.id);
-    formData.append('angulo', editando.angulo);
-    if (nuevaImagen) {
-      formData.append('imagen', nuevaImagen);
-    }
+    formData.append('orden', editando.orden);
+    formData.append('angulo_actual', editando.angulo);
+    formData.append('nuevo_angulo', editando.angulo); // Cambiar si quieres modificar el ángulo
+    formData.append('imagen', nuevaImagen);
 
     try {
-      const response = await fetch(
-        `http://localhost/ecommerce-backend/endpoints/imagenes_producto.php?id=${editando.id}`,
-        {
-          method: 'PUT',
-          body: formData
-        }
-      );
+      const response = await fetch('http://localhost/ecommerce-backend/endpoints/imagenes_producto.php', {
+        method: 'POST',
+        body: formData,
+      });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         alert('Imagen actualizada correctamente');
         cargarImagenes();
         setEditando(null);
+        setNuevaImagen(null);
       } else {
-        alert(`Error: ${data.message}`);
+        alert(`Error: ${data.message || 'Error desconocido'}`);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error al actualizar imagen:', error);
       alert('Error al actualizar la imagen');
     } finally {
       setCargando(false);
     }
   };
 
-  const handleEliminar = async (id) => {
-    if (window.confirm('¿Estás seguro de eliminar esta imagen?')) {
-      try {
-        const response = await fetch(
-          `http://localhost/ecommerce-backend/endpoints/imagenes_producto.php?id=${id}`,
-          { method: 'DELETE' }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-          alert('Imagen eliminada correctamente');
-          cargarImagenes();
-        } else {
-          alert(`Error: ${data.message}`);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error al eliminar la imagen');
-      }
-    }
-  };
+  
 
   return (
     <div className="modal-overlay">
       <div className="imagenes-modal">
         <div className="modal-header">
-          <h2>Imágenes adicionales de {producto.nombre}</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <h2>Imágenes adicionales de {producto?.nombre || 'producto'}</h2>
+          <button className="close-btn" onClick={onClose} aria-label="Cerrar modal">×</button>
         </div>
 
         <div className="table-container">
@@ -114,43 +113,36 @@ function ImagenesModal({ producto, onClose }) {
                   <td colSpan="3" className="no-images">No hay imágenes adicionales</td>
                 </tr>
               ) : (
-                imagenes.map(img => (
+                imagenes.map(img =>
                   editando?.id === img.id ? (
                     <tr key={img.id} className="editing-row">
                       <td>{img.angulo}</td>
                       <td>
-                        <form onSubmit={handleSubmit} className="editar-form">
-                          <label className="file-input-label">
-                            {nuevaImagen?.name || 'Seleccionar nueva imagen'}
-                            <input
-                              type="file"
-                              accept="image/*"
-                              onChange={handleFileChange}
-                              className="file-input"
-                              required
-                            />
-                          </label>
-                        </form>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          disabled={cargando}
+                        />
+                        {nuevaImagen && <p>{nuevaImagen.name}</p>}
                       </td>
                       <td>
-                        <div className="form-actions">
-                          <button
-                            type="button"
-                            onClick={handleCancelarEdicion}
-                            className="btn btn-cancel"
-                            disabled={cargando}
-                          >
-                            Cancelar
-                          </button>
-                          <button
-                            type="submit"
-                            className="btn btn-save"
-                            disabled={cargando || !nuevaImagen}
-                            onClick={handleSubmit}
-                          >
-                            {cargando ? 'Guardando...' : 'Guardar'}
-                          </button>
-                        </div>
+                        <button
+                          type="button"
+                          onClick={handleCancelarEdicion}
+                          disabled={cargando}
+                          className="btn btn-cancel"
+                        >
+                          Cancelar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleSubmit}
+                          disabled={cargando || !nuevaImagen}
+                          className="btn btn-save"
+                        >
+                          {cargando ? 'Guardando...' : 'Guardar'}
+                        </button>
                       </td>
                     </tr>
                   ) : (
@@ -159,38 +151,25 @@ function ImagenesModal({ producto, onClose }) {
                       <td>
                         <img
                           src={`http://localhost/ecommerce-backend/public/${img.url}`}
-                          alt={img.angulo}
+                          alt={`Ángulo ${img.angulo}`}
                           className="imagen-preview"
+                          loading="lazy"
                         />
                       </td>
                       <td>
-                        <div className="imagen-actions">
-                          <button
-                            onClick={() => handleEditar(img)}
-                            className="btn btn-edit"
-                          >
-                            Editar
-                          </button>
-                          <button
-                            onClick={() => handleEliminar(img.id)}
-                            className="btn btn-delete"
-                          >
-                            Eliminar
-                          </button>
-                        </div>
+                        <button onClick={() => handleEditar(img)} className="btn btn-edit">Editar</button>
+    
                       </td>
                     </tr>
                   )
-                ))
+                )
               )}
             </tbody>
           </table>
         </div>
 
         <div className="modal-footer">
-          <button onClick={onClose} className="btn btn-close">
-            Cerrar
-          </button>
+          <button onClick={onClose} className="btn btn-close">Cerrar</button>
         </div>
       </div>
     </div>
