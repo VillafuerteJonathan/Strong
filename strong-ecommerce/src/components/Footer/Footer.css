@@ -1,0 +1,135 @@
+/* Estilos base del footer */
+footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 3rem 1rem 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid #FFD700;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .footer-columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Estilos para cada columna */
+.footer-column {
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.footer-column:nth-child(1) { animation-delay: 0.1s; }
+.footer-column:nth-child(2) { animation-delay: 0.2s; }
+.footer-column:nth-child(3) { animation-delay: 0.3s; }
+
+.footer-column h4 {
+  color: #FFD700;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer-column h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #FFD700;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.footer-column:hover h4 {
+  color: #ffffff;
+}
+
+.footer-column:hover h4::after {
+  width: 60px;
+  background-color: #ffffff;
+}
+
+.footer-column p {
+  color: #d1d5db;
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.95rem;
+}
+
+.footer-column svg {
+  margin-right: 0.1rem;
+  color: #FFD700;
+  min-width: 6px;
+  margin-top: 3px;
+  transition: color 0.3s ease;
+  justify-content: center;
+}
+
+/* Redes sociales */
+.footer-social {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+}
+
+.footer-social a {
+    display: flex;
+  align-items: center;
+  justify-content: center; /* centra horizontal y vertical */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgba(255, 215, 0, 0.1);
+  color: #FFD700;
+  transition: all 0.4s ease;
+  font-size: 1.3rem;
+  box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+  margin-right: 0; /* elimina margen incorrecto */
+}
+
+.footer-social a:hover {
+  background-color: #ffd90086;
+  color: #1a1a1a;
+  transform: translateY(-5px) scale(1.15);
+  box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4);
+  filter: brightness(1.2);
+}
+
+/* Sección inferior del footer */
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

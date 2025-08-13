@@ -16,7 +16,7 @@ const ProductTypes = () => {
   if (loading) return <div className="loading-message">Cargando categorías...</div>;
 
   return (
-    <section className="product-section">
+    <section className="product-section " id="productos">
       <div className="container">
         <div className="section-title">
           <h2>Tipos de Productos</h2>

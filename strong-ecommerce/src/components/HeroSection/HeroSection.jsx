@@ -48,7 +48,7 @@ export const HeroSection = () => {
 
   return (
     <section 
-      id="home" 
+      id="inicio" 
       className="hero-section"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

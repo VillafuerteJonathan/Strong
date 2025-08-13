@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import HeroSection from './components/HeroSection/HeroSection';
+import Footer from './components/Footer/Footer';
 import CategoriaTypos from './components/CategoriaTypos/categoria'
 import Login from './paginas/Login/AdminLogin'; // Asegúrate de crear esta ruta
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'; // Componente nuevo
 import AdminPanel from './paginas/Dashboard/AdminPanel'; // Opcional: para el área admin
+import Calidad from './components/Calidad/Calidad'; // Componente de calidad
 import './App.css';
 
 function App() {
@@ -14,9 +16,11 @@ function App() {
         {/* Ruta pública principal */}
         <Route path="/" element={
           <>
-            <Header />
-            <HeroSection />
+            <Header  />
+            <HeroSection  />
             <CategoriaTypos />
+            <Calidad />
+            <Footer />
           </>
         } />
         
