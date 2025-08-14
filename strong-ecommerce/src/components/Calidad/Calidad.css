@@ -15,7 +15,8 @@
 }
 
 .quality-header h2 {
-  font-size: 2.5rem;
+  font-size: 1.8rem; /* Móviles */
+  
   color: #1a1a1a;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -35,12 +36,14 @@
 @media (min-width: 768px) {
   .quality-grid {
     grid-template-columns: repeat(2, 1fr);
+     font-size: 2.2rem; /* Tablets */
   }
 }
 
 @media (min-width: 1024px) {
   .quality-grid {
     grid-template-columns: repeat(4, 1fr);
+    font-size: 2.5rem; /* Desktop */
   }
 }
 

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Categoria.css";
 
 const ProductTypes = () => {
   const [productTypes, setProductTypes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-     fetch(`${import.meta.env.VITE_API_URL}/endpoints/categorias.php`)
+    fetch(`${import.meta.env.VITE_API_URL}/endpoints/categorias.php`)
       .then((res) => res.json())
       .then((data) => setProductTypes(data))
       .catch((err) => console.error("Error cargando categorías:", err))
@@ -16,7 +18,7 @@ const ProductTypes = () => {
   if (loading) return <div className="loading-message">Cargando categorías...</div>;
 
   return (
-    <section className="product-section " id="productos">
+    <section className="product-section" id="productos">
       <div className="container">
         <div className="section-title">
           <h2>Tipos de Productos</h2>
@@ -28,7 +30,11 @@ const ProductTypes = () => {
 
         <div className="card-grid">
           {productTypes.map((product) => (
-            <div key={product.id} className="category-card">
+            <div
+              key={product.id}
+              className="category-card"
+              onClick={() => navigate(`/categoria/${product.id}/${product.nombre}`)}
+            >
               <div className="image-wrapper">
                 <img
                   src={`http://localhost/ecommerce-backend/public/${product.imagen_url}`}

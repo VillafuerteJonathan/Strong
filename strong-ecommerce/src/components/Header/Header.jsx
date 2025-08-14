@@ -1,29 +1,46 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  // Detectar scroll para cambiar estilo del navbar
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Detectar si estamos en la página de categorías
+  const esCategoriaDetalle = location.pathname.startsWith("/categoria");
+
+  // Función para hacer scroll a secciones
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
+    if (location.pathname !== "/") {
+      navigate(`/#${sectionId}`);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     }
+    setIsOpen(false);
   };
 
   const navItems = [
@@ -35,7 +52,11 @@ const Header = () => {
   ];
 
   return (
-    <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
+    <nav
+      className={`navbar 
+        ${isScrolled ? "navbar-scrolled" : ""} 
+        ${esCategoriaDetalle ? "navbar-negro" : "navbar-transparente"}`}
+    >
       <div className="container">
         <div className="navbar-content">
           {/* Logo */}
@@ -43,7 +64,7 @@ const Header = () => {
             <h1>STRONG</h1>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Navegación desktop */}
           <div className="nav-desktop">
             {navItems.map((item) => (
               <button
@@ -57,23 +78,18 @@ const Header = () => {
             ))}
           </div>
 
-        {/* Icons (Carrito y Usuario) */}
-            <div className="icons-container">
+          {/* Icono carrito */}
+          <div className="icons-container">
             <button className="icon-button">
-                <ShoppingCartIcon className="icon" />
+              <ShoppingCartIcon className="icon" />
             </button>
-             <button className="icon-button ">
-                <PersonIcon className="icon" />
-            </button>
-           
-            </div>
+          </div>
 
-
-          {/* Mobile menu button */}
+          {/* Botón menú móvil */}
           <div className="mobile-menu-button">
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className="btn-ghost" 
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="btn-ghost"
               aria-label="Toggle menu"
             >
               {isOpen ? <CloseIcon className="icon" /> : <MenuIcon className="icon" />}
@@ -81,7 +97,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Menú móvil */}
         <div className={`mobile-menu ${isOpen ? "mobile-menu-open" : ""}`}>
           <div className="mobile-menu-items">
             {navItems.map((item) => (
@@ -93,8 +109,6 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
-            
-           
           </div>
         </div>
       </div>

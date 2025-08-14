@@ -264,3 +264,27 @@ h1 {
 .icon-button:hover {
   color: var(--primary-color);
 }
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Transparente por defecto */
+.navbar-transparente {
+  background: transparent;
+  color: white;
+}
+
+/* Negro en categoría */
+.navbar-negro {
+  background: #111;
+  color: white;
+}
+
+/* Cuando se hace scroll en otras páginas */
+.navbar-scrolled {
+  background: rgba(17, 17, 17, 0.9);
+}
