@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import HeroSection from "./components/HeroSection/HeroSection";
 import Footer from "./components/Footer/Footer";
-import CategoriaTypos from "./components/CategoriaTypos/categoria";
+import Novedades from "./components/Novedades/Novedades";
+import CategoriaTypos from "./components/CategoriaTypos/Categoria";
 import CategoriaDetalle from "./components/PaginasProductos/ProductosTodos/CategoriaDetalle";
 import Login from "./paginas/Login/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
@@ -21,21 +22,22 @@ function App() {
             <>
               <Header />
               <HeroSection />
-               <Calidad />
+               <Novedades />
+              
               <CategoriaTypos />
-             
+             <Calidad />
               <Footer />
             </>
           }
         />
 
-        {/* Ruta de detalle de categoría */}
+        {/* Ruta de detalle de categoría (usa useParams dentro del componente) */}
         <Route
           path="/categoria/:id/:nombre"
           element={
             <>
               <Header />
-              <CategoriaDetalle /> {/* Aquí usaremos useParams para capturar id y nombre */}
+              <CategoriaDetalle />
               <Footer />
             </>
           }

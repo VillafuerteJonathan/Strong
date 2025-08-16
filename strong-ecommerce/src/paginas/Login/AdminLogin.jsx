@@ -25,6 +25,9 @@ const Login = () => {
     setError('');
 
     try {
+      console.log('Enviando datos de login:', formData);
+      console.log('URL de API:', `${import.meta.env.VITE_API_URL}/endpoints/login.php`);
+      
       const response = await fetch(`${import.meta.env.VITE_API_URL}/endpoints/login.php`, {
         method: 'POST',
         headers: {
@@ -33,7 +36,20 @@ const Login = () => {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      console.log('Respuesta del servidor:', response.status, response.statusText);
+      
+      // Obtener el texto de la respuesta para debug
+      const responseText = await response.text();
+      console.log('Contenido de la respuesta:', responseText);
+
+      // Intentar parsear como JSON
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Error al parsear JSON:', parseError);
+        throw new Error('El servidor devolvió una respuesta inválida. Revisa la consola para más detalles.');
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Error en la autenticación');
@@ -46,6 +62,7 @@ const Login = () => {
       navigate('/dashboard');
 
     } catch (err) {
+      console.error('Error completo de login:', err);
       setError(err.message);
     } finally {
       setLoading(false);

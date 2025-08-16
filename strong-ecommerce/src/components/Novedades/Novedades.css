@@ -1,0 +1,122 @@
+/* Sección principal */
+.novedades-section {
+  padding: 4rem 1rem;
+  text-align: center;
+  background-color: #fff;
+}
+
+/* Título del componente */
+.novedades-title {
+  font-size: 2.8rem;        /* tamaño grande */
+  font-weight: 700;          /* énfasis */
+  margin-bottom: 0.5rem;     /* separación del subtítulo */
+  color: #1a1a1a;
+  text-transform: uppercase; /* opcional para destacar */
+  position: relative;
+}
+
+/* Subtítulo del componente */
+.novedades-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0 auto 3rem;       /* centra horizontalmente y separa del slider */
+  max-width: 800px;          /* ancho limitado para pantallas grandes */
+  line-height: 1.5;          /* legibilidad */
+}
+
+/* Carrusel */
+.novedades-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.slider-track {
+  display: flex;
+  gap: 1rem;
+  animation: scroll 15s linear infinite; /* movimiento continuo */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* desplaza la mitad de los slides (duplicados) */
+  }
+}
+
+/* Slide individual */
+.slide {
+  flex: 0 0 calc(33.333% - 1rem); /* 3 slides visibles */
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease; /* efecto al pasar el mouse */
+}
+
+.slide:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen del producto */
+.slide-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Nombre del producto */
+.slide-nombre {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+
+/* Precio del producto */
+.slide-precio {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #d4a017; /* dorado corporativo */
+  margin-bottom: 0.5rem;
+}
+
+/* Descripción del producto */
+.slide-descripcion {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Badge “Nuevo” */
+.nuevo-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #d4a017;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .slide {
+    flex: 0 0 calc(50% - 1rem); /* 2 slides visibles en tablet */
+  }
+}
+
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%; /* 1 slide visible en móvil */
+  }
+}

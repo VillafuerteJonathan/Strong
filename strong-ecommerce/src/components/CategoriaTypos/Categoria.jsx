@@ -1,21 +1,35 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getApiUrl, getImageUrl, apiRequest, handleApiError } from "../../config/api";
 import "./Categoria.css";
 
 const ProductTypes = () => {
   const [productTypes, setProductTypes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/endpoints/categorias.php`)
-      .then((res) => res.json())
-      .then((data) => setProductTypes(data))
-      .catch((err) => console.error("Error cargando categorías:", err))
-      .finally(() => setLoading(false));
+    const loadCategorias = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await apiRequest(getApiUrl('categorias'));
+        setProductTypes(data);
+      } catch (err) {
+        setError(handleApiError(err, "Error cargando categorías"));
+        console.error("Error cargando categorías:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCategorias();
   }, []);
 
   if (loading) return <div className="loading-message">Cargando categorías...</div>;
+  
+  if (error) return <div className="error-message">Error: {error}</div>;
 
   return (
     <section className="product-section" id="productos">
@@ -37,8 +51,11 @@ const ProductTypes = () => {
             >
               <div className="image-wrapper">
                 <img
-                  src={`http://localhost/ecommerce-backend/public/${product.imagen_url}`}
+                  src={getImageUrl(product.imagen_url)}
                   alt={product.nombre}
+                  onError={(e) => {
+                    e.target.src = '/placeholder-image.jpg';
+                  }}
                 />
               </div>
               <div className="category-overlay">

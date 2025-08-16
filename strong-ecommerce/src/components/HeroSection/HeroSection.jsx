@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 Importa useNavigate
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import hero1 from "../../assets/hero5.jpg";
 import hero2 from "../../assets/hero2.jpg";
@@ -10,25 +11,29 @@ const heroSlides = [
     image: hero1,
     title: "STRONG",
     subtitle: "Calzado de Seguridad Industrial",
-    description: "Desde 1995, Strong ha sido líder en la fabricación de calzado de seguridad industrial. Protegemos a los trabajadores con la más alta calidad y tecnología avanzada.",
+    description:
+      "Desde 1995, Strong ha sido líder en la fabricación de calzado de seguridad industrial. Protegemos a los trabajadores con la más alta calidad y tecnología avanzada.",
   },
   {
     image: hero2,
     title: "PROTECCIÓN",
     subtitle: "Profesional de Primera Clase",
-    description: "Cada par de botas STRONG está diseñado con materiales premium y tecnología de vanguardia para garantizar máxima protección en ambientes industriales.",
+    description:
+      "Cada par de botas STRONG está diseñado con materiales premium y tecnología de vanguardia para garantizar máxima protección en ambientes industriales.",
   },
   {
     image: hero3,
     title: "CALIDAD",
     subtitle: "Probada en el Tiempo",
-    description: "Con más de 25 años de experiencia, nuestros productos cumplen con las más estrictas normas internacionales de seguridad industrial.",
+    description:
+      "Con más de 25 años de experiencia, nuestros productos cumplen con las más estrictas normas internacionales de seguridad industrial.",
   },
 ];
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate(); // 👈 Hook para navegar
 
   useEffect(() => {
     if (isHovered) return;
@@ -47,26 +52,23 @@ export const HeroSection = () => {
   };
 
   return (
-    <section 
-      id="inicio" 
+    <section
+      id="inicio"
       className="hero-section"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-        
       {/* Background Images */}
       {heroSlides.map((slide, index) => (
-        
         <div
-        
           key={index}
           className={`hero-slide${index === currentSlide ? " active" : ""}`}
           aria-hidden={index !== currentSlide}
         >
-          <img 
-            src={slide.image} 
-            alt={`${slide.title} - ${slide.subtitle}`} 
-            className="hero-image" 
+          <img
+            src={slide.image}
+            alt={`${slide.title} - ${slide.subtitle}`}
+            className="hero-image"
             loading={index === 0 ? "eager" : "lazy"}
           />
           <div className="hero-gradient"></div>
@@ -78,10 +80,29 @@ export const HeroSection = () => {
         <div className="hero-text-container">
           <h1 className="hero-title">{heroSlides[currentSlide].title}</h1>
           <h2 className="hero-subtitle">{heroSlides[currentSlide].subtitle}</h2>
-          <p className="hero-description">{heroSlides[currentSlide].description}</p>
+          <p className="hero-description">
+            {heroSlides[currentSlide].description}
+          </p>
           <div className="hero-buttons">
-            <button className="btn-hero-primary">Ver Productos</button>
-            <button className="btn-hero-outline">Contactar</button>
+            {/* 👇 Redirige a todos los productos */}
+            <button
+              className="btn-hero-primary"
+              onClick={() => navigate("/categoria/todos/todos")}
+            >
+              Ver Productos
+            </button>
+            {/* 👇 Ajusta si tienes la ruta de contacto */}
+            <button
+              className="btn-hero-outline"
+                onClick={() =>
+                window.open(
+                  "https://wa.me/593982561360?text=Hola,%20quiero%20información",
+                  "_blank"
+                )
+              }
+            >
+              Contactar
+            </button>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./CategoriaDetalle.css";
 
 const CategoriaDetalle = () => {
-  const { nombre, categoria_id } = useParams(); 
+  const { nombre, id } = useParams(); 
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,9 +13,16 @@ const CategoriaDetalle = () => {
     const fetchProductos = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/endpoints/DetalleProductos.php?categoria_id=${categoria_id}`
-        );
+        let url;
+        if (id === "todos") {
+          // Si el id es "todos", obtener todos los productos sin filtro
+          url = `${import.meta.env.VITE_API_URL}/endpoints/DetalleProductos.php`;
+        } else {
+          // Si hay un id específico, filtrar por categoría
+          url = `${import.meta.env.VITE_API_URL}/endpoints/DetalleProductos.php?categoria_id=${id}`;
+        }
+        
+        const response = await fetch(url);
         const data = await response.json();
         setProductos(data);
       } catch (error) {
@@ -26,12 +33,12 @@ const CategoriaDetalle = () => {
     };
 
     fetchProductos();
-  }, [categoria_id]);
+  }, [id]);
 
   if (loading) return <div className="loading-message">Cargando productos...</div>;
 
   const productosFiltrados =
-    nombre === "Todos"
+    nombre === "todos"
       ? productos
       : productos.filter((p) => p.categoria === nombre);
 
@@ -39,7 +46,7 @@ const CategoriaDetalle = () => {
     <div className="categoria-detalle-container">
       <div className="categoria-header">
         <h2 className="categoria-title">
-          {nombre === "Todos" ? "Todos los productos" : `Categoría: ${nombre}`}
+          {nombre === "todos" ? "Todos los productos" : `Categoría: ${nombre}`}
         </h2>
       </div>
 
