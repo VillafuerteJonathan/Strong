@@ -22,15 +22,31 @@ const Header = () => {
 
   // Detectar si estamos en la página de categorías
   const esCategoriaDetalle = location.pathname.startsWith("/categoria");
+  const esProductoDetalle = location.pathname.startsWith("/producto");
 
   // Función para hacer scroll a secciones
   const scrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
-      navigate(`/#${sectionId}`);
+      // Navegar a la página principal y luego hacer scroll
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const navbarHeight = document.querySelector(".navbar")?.offsetHeight || 70;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
     } else {
+      // Ya estamos en la página principal, hacer scroll directamente
       const element = document.getElementById(sectionId);
       if (element) {
-        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+        const navbarHeight = document.querySelector(".navbar")?.offsetHeight || 70;
         const elementPosition = element.getBoundingClientRect().top + window.scrollY;
         const offsetPosition = elementPosition - navbarHeight;
 
@@ -54,7 +70,9 @@ const Header = () => {
     <nav
       className={`navbar 
         ${isScrolled ? "navbar-scrolled" : ""} 
-        ${esCategoriaDetalle ? "navbar-negro" : "navbar-transparente"}`}
+        ${esCategoriaDetalle ? "navbar-negro" : "navbar-transparente"}
+         ${esProductoDetalle ? "navbar-negro" : "navbar-transparente"}`}
+        
     >
       <div className="container">
         <div className="navbar-content">

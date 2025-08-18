@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Novedades.css";
 
 const Novedades = () => {
   const [productos, setProductos] = useState([]);
   const IMAGEN_BASE_URL = "http://localhost/ecommerce-backend/public/";
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNovedades = async () => {
@@ -24,6 +26,10 @@ const Novedades = () => {
   if (!productos.length)
     return <div className="loading-message">Cargando novedades...</div>;
 
+  const handleClick = (id) => {
+    navigate(`/producto/${id}`);
+  };
+
   return (
     <section className="novedades-section">
       <h2 className="novedades-title">PRODUCTOS RECIENTES</h2>
@@ -34,9 +40,13 @@ const Novedades = () => {
 
       <div className="novedades-slider">
         <div className="slider-track">
-          {/* Duplicamos los productos para crear loop infinito */}
           {[...productos, ...productos].map((prod, idx) => (
-            <div key={prod.id + "-" + idx} className="slide">
+            <div
+              key={prod.id + "-" + idx}
+              className="slide"
+              onClick={() => handleClick(prod.id)}
+              style={{ cursor: "pointer" }}
+            >
               <span className="nuevo-badge">Nuevo</span>
               <img
                 src={IMAGEN_BASE_URL + (prod.imagen_principal || prod.imagen_url)}

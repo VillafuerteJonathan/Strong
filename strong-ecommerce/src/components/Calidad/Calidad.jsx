@@ -4,8 +4,8 @@ import './Calidad.css'; // Asegúrate de tener este archivo CSS con los estilos 
 
 const QualitySection = () => {
   return (
-    <section id="features" className="quality-section" >
-      <div className="quality-container" id='calidad'>
+    <section id="calidad" className="quality-section" >
+      <div className="quality-container">
         <div className="quality-header">
           <h2>¿POR QUÉ ELEGIR STRONG SECURITY SHOES?</h2>
           <p>

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./CategoriaDetalle.css";
 
@@ -7,6 +7,7 @@ const CategoriaDetalle = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate(); // Hook para redirigir
   const IMAGEN_BASE_URL = "http://localhost/ecommerce-backend/public/"; // Ajusta según tu ruta real
 
   useEffect(() => {
@@ -15,10 +16,8 @@ const CategoriaDetalle = () => {
       try {
         let url;
         if (id === "todos") {
-          // Si el id es "todos", obtener todos los productos sin filtro
           url = `${import.meta.env.VITE_API_URL}/endpoints/DetalleProductos.php`;
         } else {
-          // Si hay un id específico, filtrar por categoría
           url = `${import.meta.env.VITE_API_URL}/endpoints/DetalleProductos.php?categoria_id=${id}`;
         }
         
@@ -42,6 +41,11 @@ const CategoriaDetalle = () => {
       ? productos
       : productos.filter((p) => p.categoria === nombre);
 
+  const handleClickProducto = (productoId) => {
+    // Redirige al componente de detalle de producto con el ID
+    navigate(`/producto/${productoId}`);
+  };
+
   return (
     <div className="categoria-detalle-container">
       <div className="categoria-header">
@@ -52,7 +56,12 @@ const CategoriaDetalle = () => {
 
       <div className="productos-grid">
         {productosFiltrados.map((prod) => (
-          <div key={prod.id} className="producto-card">
+          <div 
+            key={prod.id} 
+            className="producto-card"
+            onClick={() => handleClickProducto(prod.id)}
+            style={{ cursor: "pointer" }} // para indicar que es clickeable
+          >
             <img
               src={IMAGEN_BASE_URL + (prod.imagen_principal || prod.imagen_url)}
               alt={prod.nombre}

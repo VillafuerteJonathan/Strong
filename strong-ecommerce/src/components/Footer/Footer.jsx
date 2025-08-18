@@ -33,9 +33,10 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} STRONG SECURITY SHOES. Todos los derechos reservados.</p>
+         <p> Realizado por EDURDSOLUTION.</p>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default Footer;oiu
