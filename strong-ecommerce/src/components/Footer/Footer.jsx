@@ -39,4 +39,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;oiu
+export default Footer;

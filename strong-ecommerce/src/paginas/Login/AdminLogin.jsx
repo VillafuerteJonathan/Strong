@@ -111,6 +111,14 @@ const Login = () => {
           >
             {loading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>
+           <button 
+              type="button"
+              className="cancel-button"
+              onClick={() => navigate('/')}
+            >
+              Cancelar
+            </button>
+
         </form>
       </div>
     </div>

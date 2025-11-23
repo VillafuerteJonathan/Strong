@@ -14,11 +14,22 @@ const ProductTypes = () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await apiRequest(getApiUrl('categorias'));
-        setProductTypes(data);
+
+        const response = await apiRequest(getApiUrl("categorias"));
+
+        console.log("🔥 Respuesta del backend:", response);
+
+        // Manejo inteligente de estructuras diferentes
+        const categorias =
+          (Array.isArray(response) && response) ||
+          response?.data ||
+          response?.categorias ||
+          [];
+
+        setProductTypes(categorias);
       } catch (err) {
         setError(handleApiError(err, "Error cargando categorías"));
-        console.error("Error cargando categorías:", err);
+        console.error("❌ Error cargando categorías:", err);
       } finally {
         setLoading(false);
       }
@@ -28,7 +39,6 @@ const ProductTypes = () => {
   }, []);
 
   if (loading) return <div className="loading-message">Cargando categorías...</div>;
-  
   if (error) return <div className="error-message">Error: {error}</div>;
 
   return (
@@ -37,8 +47,8 @@ const ProductTypes = () => {
         <div className="section-title">
           <h2>Tipos de Productos</h2>
           <p>
-            Ofrecemos una amplia gama de calzado de seguridad diseñado para diferentes
-            industrias y necesidades específicas de protección.
+            Ofrecemos una amplia gama de calzado de seguridad diseñado para diferentes industrias
+            y necesidades específicas de protección.
           </p>
         </div>
 
@@ -53,11 +63,10 @@ const ProductTypes = () => {
                 <img
                   src={getImageUrl(product.imagen_url)}
                   alt={product.nombre}
-                  onError={(e) => {
-                    e.target.src = '/placeholder-image.jpg';
-                  }}
+                  onError={(e) => (e.target.src = "/placeholder-image.jpg")}
                 />
               </div>
+
               <div className="category-overlay">
                 <h3>{product.nombre}</h3>
                 <p>{product.descripcion}</p>

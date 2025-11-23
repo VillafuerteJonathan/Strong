@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,14 +20,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Detectar si estamos en la página de categorías
   const esCategoriaDetalle = location.pathname.startsWith("/categoria");
   const esProductoDetalle = location.pathname.startsWith("/producto");
 
   // Función para hacer scroll a secciones
   const scrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
-      // Navegar a la página principal y luego hacer scroll
       navigate("/", { replace: true });
       setTimeout(() => {
         const element = document.getElementById(sectionId);
@@ -43,7 +41,6 @@ const Header = () => {
         }
       }, 100);
     } else {
-      // Ya estamos en la página principal, hacer scroll directamente
       const element = document.getElementById(sectionId);
       if (element) {
         const navbarHeight = document.querySelector(".navbar")?.offsetHeight || 70;
@@ -62,7 +59,7 @@ const Header = () => {
   const navItems = [
     { name: "Inicio", href: "inicio" },
     { name: "Productos", href: "productos" },
-    { name: "Calidad", href: "calidad" }, 
+    { name: "Calidad", href: "calidad" },
     { name: "Contáctanos", href: "contacto" },
   ];
 
@@ -71,11 +68,11 @@ const Header = () => {
       className={`navbar 
         ${isScrolled ? "navbar-scrolled" : ""} 
         ${esCategoriaDetalle ? "navbar-negro" : "navbar-transparente"}
-         ${esProductoDetalle ? "navbar-negro" : "navbar-transparente"}`}
-        
+        ${esProductoDetalle ? "navbar-negro" : "navbar-transparente"}`}
     >
       <div className="container">
         <div className="navbar-content">
+
           {/* Logo */}
           <div className="logo" onClick={() => scrollToSection("inicio")}>
             <h1>STRONG</h1>
@@ -95,10 +92,14 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Icono carrito */}
+          {/* Botón de iniciar sesión */}
           <div className="icons-container">
-            <button className="icon-button">
-              <ShoppingCartIcon className="icon" />
+            <button
+              className="icon-button"
+              onClick={() => navigate("/login")}
+              title="Iniciar Sesión"
+            >
+              <LoginIcon className="icon" />
             </button>
           </div>
 
@@ -126,6 +127,17 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
+
+            {/* Iniciar sesión en menú móvil */}
+            <button
+              className="mobile-nav-link"
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/login");
+              }}
+            >
+              Iniciar Sesión
+            </button>
           </div>
         </div>
       </div>
